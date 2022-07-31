@@ -1,0 +1,14 @@
+name: plutocore
+version: 1.0.0
+main: top.plutomc.plutocore.CorePlugin
+author: GerryYuu
+api-version: 1.13
+description: FUCK YOU PAPERMC
+permissions:
+  plutocore:
+    children:
+      cmd:
+        description: cmd
+commands:
+  plutocore:
+    permission: plutocore.cmd
