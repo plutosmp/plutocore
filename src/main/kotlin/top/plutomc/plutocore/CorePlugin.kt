@@ -52,7 +52,7 @@ class CorePlugin : JavaPlugin() {
         server.getPluginCommand("plutocore")?.setExecutor(MainCommand())
         server.getPluginCommand("plutocore")?.tabCompleter = MainCommand()
 
-        //register command - gamemode command
+        // register command - gamemode command
         server.getPluginCommand("gm")?.setExecutor(GameModeCommand())
         server.getPluginCommand("gm")?.tabCompleter = GameModeCommand()
 
