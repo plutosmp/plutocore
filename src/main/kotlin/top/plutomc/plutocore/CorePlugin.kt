@@ -41,7 +41,7 @@ class CorePlugin : JavaPlugin() {
         // init adventure bukkitAudiences
         bukkitAudiences = BukkitAudiences.create(this)
 
-        // check if config file was created
+        // check if config file wasn't created
         val file = File(dataFolder, "config.yml")
         if (file.exists().not()) saveDefaultConfig()
 
@@ -76,8 +76,7 @@ class CorePlugin : JavaPlugin() {
                 server.onlinePlayers.forEach {
                     if (gameModeCache.containsKey(it.uniqueId)) {
                         if ((gameModeCache[it.uniqueId] == it.gameMode).not()) {
-                            it.gameMode = GameMode.SURVIVAL
-                            gameModeCache[it.uniqueId] = GameMode.SURVIVAL
+                            it.gameMode = gameModeCache[it.uniqueId]!!
                             LocaleUtil.send(it, "gameModeWarn")
                         }
                     }
