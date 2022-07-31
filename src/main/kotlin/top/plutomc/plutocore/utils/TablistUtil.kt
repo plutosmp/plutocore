@@ -1,5 +1,6 @@
 package top.plutomc.plutocore.utils
 
+import me.clip.placeholderapi.PlaceholderAPI
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
@@ -15,7 +16,7 @@ object TablistUtil {
 
     private fun updateHeaderFor(player: Player, content: String?, vararg tagResolver: TagResolver) {
         val playerAudience = CorePlugin.bukkitAudiences()!!.player(player)
-        content?.let { MiniMessage.miniMessage().deserialize(it, *tagResolver) }?.let { playerAudience.sendPlayerListHeader(it) }
+        content?.let { MiniMessage.miniMessage().deserialize(PlaceholderAPI.setPlaceholders(player, it), *tagResolver) }?.let { playerAudience.sendPlayerListHeader(it) }
     }
 
     fun updateFooter(content: String?) {
@@ -26,6 +27,6 @@ object TablistUtil {
 
     private fun updateFooterFor(player: Player, content: String?, vararg tagResolver: TagResolver) {
         val playerAudience = CorePlugin.bukkitAudiences()!!.player(player)
-        content?.let { MiniMessage.miniMessage().deserialize(it, *tagResolver) }?.let { playerAudience.sendPlayerListFooter(it) }
+        content?.let { MiniMessage.miniMessage().deserialize(PlaceholderAPI.setPlaceholders(player, it), *tagResolver) }?.let { playerAudience.sendPlayerListFooter(it) }
     }
 }
