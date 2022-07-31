@@ -7,8 +7,8 @@ import java.io.File
 
 class CorePlugin : JavaPlugin(){
     companion object {
-        var instance : JavaPlugin? = null
-        var bukkitAudiences : BukkitAudiences? = null
+        private var instance : JavaPlugin? = null
+        private var bukkitAudiences : BukkitAudiences? = null
         fun instance() = instance
         fun bukkitAudiences() = bukkitAudiences
     }
