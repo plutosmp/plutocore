@@ -1,19 +1,24 @@
 package top.plutomc.plutocore
 
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
+import org.bukkit.GameMode
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
 import top.plutomc.plutocore.commands.MainCommand
 import top.plutomc.plutocore.listeners.PlayerListener
+import top.plutomc.plutocore.utils.LocaleUtil
 import top.plutomc.plutocore.utils.TabListUtil
 import java.io.File
+import java.util.*
 
 class CorePlugin : JavaPlugin() {
     companion object {
         lateinit var instance: JavaPlugin
             private set
         lateinit var bukkitAudiences: BukkitAudiences
+            private set
+        lateinit var gameModeCache: MutableMap<UUID, GameMode>
             private set
 
         fun reloadPlugin() {
@@ -23,10 +28,14 @@ class CorePlugin : JavaPlugin() {
 
     private lateinit var tabListHeaderTask: BukkitTask
     private lateinit var tabListFooterTask: BukkitTask
+    private lateinit var gameModeProtectTask: BukkitTask
 
     override fun onEnable() {
         logger.info("Enabling...")
         instance = this
+
+        // init plugin cache system
+        gameModeCache = HashMap()
 
         // init adventure bukkitAudiences
         bukkitAudiences = BukkitAudiences.create(this)
@@ -42,7 +51,7 @@ class CorePlugin : JavaPlugin() {
         server.getPluginCommand("plutocore")?.setExecutor(MainCommand())
         server.getPluginCommand("plutocore")?.tabCompleter = MainCommand()
 
-        // init tasks
+        // init tasks - TabList
         tabListHeaderTask = object : BukkitRunnable() {
             override fun run() {
                 val s = config.getString("tablist.header")
@@ -55,6 +64,18 @@ class CorePlugin : JavaPlugin() {
                 TabListUtil.updateFooter(s)
             }
         }.runTaskTimerAsynchronously(this, 0L, 20L)
+
+        // init tasks - GameMode protect
+        gameModeProtectTask = object : BukkitRunnable() {
+            override fun run() {
+                server.onlinePlayers.forEach {
+                    if ((gameModeCache.containsKey(it.uniqueId) && gameModeCache[it.uniqueId] == it.gameMode).not()) {
+                        it.gameMode = GameMode.SURVIVAL
+                        LocaleUtil.send(it, "gameModeWarn")
+                    }
+                }
+            }
+        }.runTaskTimer(this, 0L, 5L);
 
         logger.info("Done.")
     }

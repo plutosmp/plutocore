@@ -17,7 +17,7 @@ object MessageUtil {
         s!!.let { MiniMessage.miniMessage().deserialize(it, *tagResolver) }.let { playerAudience.sendMessage(it) }
     }
 
-    fun boardcast(message: String?, vararg tagResolver: TagResolver) {
+    fun broadcast(message: String?, vararg tagResolver: TagResolver) {
         CorePlugin.instance.server.onlinePlayers.forEach { send(it, message, *tagResolver) }
     }
 }
