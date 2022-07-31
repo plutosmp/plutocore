@@ -65,7 +65,7 @@ class CorePlugin : JavaPlugin() {
         // close bukkitAudiences, to avoid unsafe disable
         bukkitAudiences.close()
 
-        //close tasks
+        // close tasks
         server.scheduler.cancelTasks(this)
 
         logger.info("Done.")
