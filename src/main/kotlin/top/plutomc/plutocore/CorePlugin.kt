@@ -83,7 +83,7 @@ class CorePlugin : JavaPlugin() {
                     }
                 }
             }
-        }.runTaskTimer(this, 0L, 5L)
+        }.runTaskTimer(this, 0L, 1L)
 
         // avoid issues cause by reloading
         server.onlinePlayers.forEach {
