@@ -7,7 +7,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import top.plutomc.plutocore.CorePlugin
-import top.plutomc.plutocore.MessageUtil
+import top.plutomc.plutocore.utils.MessageUtil
 
 class PlayerListener : Listener{
     @EventHandler
