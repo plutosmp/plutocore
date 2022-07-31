@@ -14,9 +14,9 @@ class CorePlugin : JavaPlugin(){
     }
 
     override fun onEnable() {
-        instance = this;
+        instance = this
         bukkitAudiences = BukkitAudiences.create(this)
-        val file = File(dataFolder, "config.yml");
+        val file = File(dataFolder, "config.yml")
         if (file.exists().not()) saveDefaultConfig()
         logger.info("Enabling...")
         server.pluginManager.registerEvents(PlayerListener(), this)
