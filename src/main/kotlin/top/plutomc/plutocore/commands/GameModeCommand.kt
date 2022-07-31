@@ -7,7 +7,7 @@ import org.bukkit.command.TabExecutor
 import top.plutomc.plutocore.CorePlugin
 import top.plutomc.plutocore.utils.MessageUtil
 
-class GameModeCommand : TabExecutor{
+class GameModeCommand : TabExecutor {
     override fun onTabComplete(
         sender: CommandSender,
         command: Command,
@@ -20,6 +20,7 @@ class GameModeCommand : TabExecutor{
             CorePlugin.instance.server.onlinePlayers.forEach {
                 list.add(it.name)
             }
+            return list
         }
         return mutableListOf()
     }
@@ -27,11 +28,12 @@ class GameModeCommand : TabExecutor{
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {
         if (args!!.isNotEmpty()) {
             if (listOf("creative", "adventure", "survival", "spectator").contains(args[0].lowercase())
-                && CorePlugin.instance.server.getPlayer(args[1]) != null) {
+                && CorePlugin.instance.server.getPlayer(args[1]) != null
+            ) {
                 val player = CorePlugin.instance.server.getPlayer(args[1])
                 player!!.gameMode = GameMode.valueOf(args[0].uppercase())
                 CorePlugin.gameModeCache[player.uniqueId] = GameMode.valueOf(args[0].uppercase())
-                MessageUtil.send(sender, "<green>成功将 <yello>${args[1]} <green>的游戏模式修改为 <yello>${args[0]}。")
+                MessageUtil.send(sender, "<green>成功将 <yellow>${args[1]} <green>的游戏模式修改为 <yellow>${args[0]}。")
             }
         }
         return true

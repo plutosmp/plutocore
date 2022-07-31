@@ -11,8 +11,9 @@ import top.plutomc.plutocore.utils.MessageUtil
 class PlayerListener : Listener {
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
-        // switch gamemode to survival
+        // switch gamemode to survival & add cache
         event.player.gameMode = GameMode.SURVIVAL
+        CorePlugin.gameModeCache[event.player.uniqueId] = GameMode.SURVIVAL
 
         // modify join message
         val msg = CorePlugin.instance.config.getString("joinAndQuitMessage.join")

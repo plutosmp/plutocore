@@ -74,9 +74,12 @@ class CorePlugin : JavaPlugin() {
         gameModeProtectTask = object : BukkitRunnable() {
             override fun run() {
                 server.onlinePlayers.forEach {
-                    if ((gameModeCache.containsKey(it.uniqueId) && gameModeCache[it.uniqueId] == it.gameMode).not()) {
-                        it.gameMode = GameMode.SURVIVAL
-                        LocaleUtil.send(it, "gameModeWarn")
+                    if (gameModeCache.containsKey(it.uniqueId)) {
+                        if ((gameModeCache[it.uniqueId] == it.gameMode).not()) {
+                            it.gameMode = GameMode.SURVIVAL
+                            gameModeCache[it.uniqueId] = GameMode.SURVIVAL
+                            LocaleUtil.send(it, "gameModeWarn")
+                        }
                     }
                 }
             }
