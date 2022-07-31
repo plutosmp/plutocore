@@ -6,7 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
 import top.plutomc.plutocore.commands.MainCommand
 import top.plutomc.plutocore.listeners.PlayerListener
-import top.plutomc.plutocore.utils.TablistUtil
+import top.plutomc.plutocore.utils.TabListUtil
 import java.io.File
 
 class CorePlugin : JavaPlugin() {
@@ -47,7 +47,7 @@ class CorePlugin : JavaPlugin() {
                 val stringBuilder = StringBuilder()
                 val list = config.getStringList("tablist.header")
                 list.forEach { stringBuilder.append(it).append("<br>") }
-                TablistUtil.updateHeader(stringBuilder.toString())
+                TabListUtil.updateHeader(stringBuilder.toString())
             }
         }.runTaskTimerAsynchronously(this, 0L, 20L)
         tabListFooterTask = object : BukkitRunnable() {
@@ -55,7 +55,7 @@ class CorePlugin : JavaPlugin() {
                 val stringBuilder = StringBuilder()
                 val list = config.getStringList("tablist.header")
                 list.forEach { stringBuilder.append(it).append("<br>") }
-                TablistUtil.updateFooter(stringBuilder.toString())
+                TabListUtil.updateFooter(stringBuilder.toString())
             }
         }.runTaskTimerAsynchronously(this, 0L, 20L)
 

@@ -6,7 +6,7 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import org.bukkit.entity.Player
 import top.plutomc.plutocore.CorePlugin
 
-object TablistUtil {
+object TabListUtil {
     fun updateHeader(content: String?) {
         CorePlugin.instance()!!.server.onlinePlayers.forEach {
             updateHeaderFor(it, content)
