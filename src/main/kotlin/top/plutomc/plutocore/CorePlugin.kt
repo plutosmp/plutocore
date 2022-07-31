@@ -9,10 +9,10 @@ import top.plutomc.plutocore.listeners.PlayerListener
 import top.plutomc.plutocore.utils.TablistUtil
 import java.io.File
 
-class CorePlugin : JavaPlugin(){
+class CorePlugin : JavaPlugin() {
     companion object {
-        private var instance : JavaPlugin? = null
-        private var bukkitAudiences : BukkitAudiences? = null
+        private var instance: JavaPlugin? = null
+        private var bukkitAudiences: BukkitAudiences? = null
         fun instance() = instance
         fun bukkitAudiences() = bukkitAudiences
         fun reloadPlugin() {
@@ -42,7 +42,7 @@ class CorePlugin : JavaPlugin(){
         server.getPluginCommand("plutocore")?.setTabCompleter(MainCommand())
 
         // init tasks
-        tabListHeaderTask = object : BukkitRunnable(){
+        tabListHeaderTask = object : BukkitRunnable() {
             override fun run() {
                 val stringBuilder = StringBuilder()
                 val list = config.getStringList("tablist.header")
@@ -50,7 +50,7 @@ class CorePlugin : JavaPlugin(){
                 TablistUtil.updateHeader(stringBuilder.toString())
             }
         }.runTaskTimerAsynchronously(this, 0L, 20L)
-        tabListFooterTask = object : BukkitRunnable(){
+        tabListFooterTask = object : BukkitRunnable() {
             override fun run() {
                 val stringBuilder = StringBuilder()
                 val list = config.getStringList("tablist.header")

@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerQuitEvent
 import top.plutomc.plutocore.CorePlugin
 import top.plutomc.plutocore.utils.MessageUtil
 
-class PlayerListener : Listener{
+class PlayerListener : Listener {
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
         val player = event.player

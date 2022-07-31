@@ -30,7 +30,7 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-tasks.shadowJar{
+tasks.shadowJar {
     relocate("kotlin", "libs.kotlin")
     relocate("net", "libs.net")
     relocate("org", "libs.org")
