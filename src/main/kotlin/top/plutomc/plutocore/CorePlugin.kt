@@ -11,17 +11,18 @@ import java.io.File
 
 class CorePlugin : JavaPlugin() {
     companion object {
-        private var instance: JavaPlugin? = null
-        private var bukkitAudiences: BukkitAudiences? = null
-        fun instance() = instance
-        fun bukkitAudiences() = bukkitAudiences
+        lateinit var instance: JavaPlugin
+            private set
+        lateinit var bukkitAudiences: BukkitAudiences
+            private set
+
         fun reloadPlugin() {
-            instance?.reloadConfig()
+            instance.reloadConfig()
         }
     }
 
-    private var tabListHeaderTask: BukkitTask? = null
-    private var tabListFooterTask: BukkitTask? = null
+    private lateinit var tabListHeaderTask: BukkitTask
+    private lateinit var tabListFooterTask: BukkitTask
 
     override fun onEnable() {
         logger.info("Enabling...")
@@ -39,7 +40,7 @@ class CorePlugin : JavaPlugin() {
 
         // register commands
         server.getPluginCommand("plutocore")?.setExecutor(MainCommand())
-        server.getPluginCommand("plutocore")?.setTabCompleter(MainCommand())
+        server.getPluginCommand("plutocore")?.tabCompleter = MainCommand()
 
         // init tasks
         tabListHeaderTask = object : BukkitRunnable() {
