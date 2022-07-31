@@ -1,0 +1,3 @@
+joinAndQuitMessage:
+  join: "<gray>[<green>+<gray>] <white><player> <gray>加入了游戏。"
+  quit: "<gray>[<red>+<gray>] <white><player> <gray>退出了游戏。"
