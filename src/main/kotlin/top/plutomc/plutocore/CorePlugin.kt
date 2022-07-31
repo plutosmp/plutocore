@@ -83,7 +83,12 @@ class CorePlugin : JavaPlugin() {
                     }
                 }
             }
-        }.runTaskTimer(this, 0L, 5L);
+        }.runTaskTimer(this, 0L, 5L)
+
+        // avoid issues cause by reloading
+        server.onlinePlayers.forEach {
+            gameModeCache[it.uniqueId] = GameMode.SURVIVAL
+        }
 
         logger.info("Done.")
     }
