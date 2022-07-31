@@ -1,3 +1,8 @@
 joinAndQuitMessage:
   join: "<gray>[<green>+<gray>] <white>%player_name% <gray>加入了游戏。"
   quit: "<gray>[<red>+<gray>] <white>%player_name% <gray>退出了游戏。"
+tablist:
+  header:
+    - "如果说这个时候有一个苦力怕把你马炸死了"
+  footer:
+    - "那么会非常心疼的"

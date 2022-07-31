@@ -10,6 +10,7 @@ import top.plutomc.plutocore.utils.MessageUtil
 class PlayerListener : Listener {
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
+        // modify join message
         val player = event.player
         val msg = CorePlugin.instance.config.getString("joinAndQuitMessage.join")
         MessageUtil.send(player, msg)
@@ -17,6 +18,7 @@ class PlayerListener : Listener {
 
     @EventHandler
     fun onPlayerQuit(event: PlayerQuitEvent) {
+        // modify quit message
         val player = event.player
         val msg = CorePlugin.instance.config.getString("joinAndQuitMessage.quit")
         MessageUtil.send(player, msg)
