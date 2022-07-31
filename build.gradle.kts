@@ -13,11 +13,13 @@ repositories {
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://oss.sonatype.org/content/groups/public/")
     maven("https://maven.aliyun.com/repository/public")
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     mavenCentral()
     mavenLocal()
 }
 
 dependencies {
+    compileOnly("me.clip:placeholderapi:2.11.2")
     compileOnly("org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT")
     implementation("net.kyori:adventure-platform-bukkit:4.1.1")
     implementation("net.kyori:adventure-api:4.11.0")
