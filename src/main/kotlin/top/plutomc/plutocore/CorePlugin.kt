@@ -5,6 +5,7 @@ import org.bukkit.GameMode
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
+import top.plutomc.plutocore.commands.GameModeCommand
 import top.plutomc.plutocore.commands.MainCommand
 import top.plutomc.plutocore.listeners.PlayerListener
 import top.plutomc.plutocore.utils.LocaleUtil
@@ -47,9 +48,13 @@ class CorePlugin : JavaPlugin() {
         // register listeners
         server.pluginManager.registerEvents(PlayerListener(), this)
 
-        // register commands
+        // register command - main command
         server.getPluginCommand("plutocore")?.setExecutor(MainCommand())
         server.getPluginCommand("plutocore")?.tabCompleter = MainCommand()
+
+        //register command - gamemode command
+        server.getPluginCommand("gm")?.setExecutor(GameModeCommand())
+        server.getPluginCommand("gm")?.tabCompleter = GameModeCommand()
 
         // init tasks - TabList
         tabListHeaderTask = object : BukkitRunnable() {

@@ -11,6 +11,12 @@ permissions:
     children:
       cmd:
         description: cmd
+      gamemode:
+        description: gamemode
 commands:
   plutocore:
     permission: plutocore.cmd
+  gm:
+    permission: plutocore.gamemode
+    aliases:
+      - mode

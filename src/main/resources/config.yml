@@ -8,4 +8,5 @@ tablist:
     - "那么会非常心疼的"
 
 locale:
+  succeed: "<green>成功。"
   gameModeWarn: "<red>检测到你的游戏模式被未许可的方式更改了。<br><red>这次更改的操作已经被阻止。<br><red>如果这是管理员帮你修改的，请联系他。"
