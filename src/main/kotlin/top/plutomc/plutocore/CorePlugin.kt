@@ -45,18 +45,14 @@ class CorePlugin : JavaPlugin() {
         // init tasks
         tabListHeaderTask = object : BukkitRunnable() {
             override fun run() {
-                val stringBuilder = StringBuilder()
-                val list = config.getStringList("tablist.header")
-                list.forEach { stringBuilder.append(it).append("<br>") }
-                TabListUtil.updateHeader(stringBuilder.toString())
+                val s = config.getString("tablist.header")
+                TabListUtil.updateHeader(s)
             }
         }.runTaskTimerAsynchronously(this, 0L, 20L)
         tabListFooterTask = object : BukkitRunnable() {
             override fun run() {
-                val stringBuilder = StringBuilder()
-                val list = config.getStringList("tablist.header")
-                list.forEach { stringBuilder.append(it).append("<br>") }
-                TabListUtil.updateFooter(stringBuilder.toString())
+                val s = config.getString("tablist.footer")
+                TabListUtil.updateFooter(s)
             }
         }.runTaskTimerAsynchronously(this, 0L, 20L)
 

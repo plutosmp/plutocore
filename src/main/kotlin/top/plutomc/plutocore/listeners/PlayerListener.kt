@@ -11,16 +11,16 @@ class PlayerListener : Listener {
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
         // modify join message
-        val player = event.player
         val msg = CorePlugin.instance.config.getString("joinAndQuitMessage.join")
-        MessageUtil.send(player, msg)
+        event.joinMessage = null
+        MessageUtil.boardcast(msg)
     }
 
     @EventHandler
     fun onPlayerQuit(event: PlayerQuitEvent) {
         // modify quit message
-        val player = event.player
         val msg = CorePlugin.instance.config.getString("joinAndQuitMessage.quit")
-        MessageUtil.send(player, msg)
+        event.quitMessage = null
+        MessageUtil.boardcast(msg)
     }
 }
