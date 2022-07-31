@@ -13,7 +13,7 @@ object MessageUtil {
         if (sender is Player) {
             s = message?.let { PlaceholderAPI.setPlaceholders(sender, it) }
         }
-        val playerAudience = CorePlugin.bukkitAudiences()!!.sender(sender)
+        val playerAudience = CorePlugin.bukkitAudiences.sender(sender)
         s!!.let { MiniMessage.miniMessage().deserialize(it, *tagResolver) }.let { playerAudience.sendMessage(it) }
     }
 }
