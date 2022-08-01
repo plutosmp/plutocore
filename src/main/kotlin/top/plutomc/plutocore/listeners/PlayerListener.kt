@@ -60,7 +60,7 @@ class PlayerListener : Listener {
             val s: String? = if (event.player.inventory.itemInMainHand.type != Material.AIR) {
                 val nbtString: String = NBTItem(event.player.inventory.itemInMainHand).asNBTString()
                 CorePlugin.instance.config.getString("chatFormat.itemShow.placeholder")
-                    ?.let { event.message.replace(it, "<hover:show_item:${event.player.inventory.itemInMainHand.type.toString().lowercase()}:1:$nbtString><aqua><u>查看物品</u></aqua></hover>") }
+                    ?.let { event.message.replace(it, "<hover:show_item:${event.player.inventory.itemInMainHand.type.toString().lowercase()}:1:'$nbtString'><aqua><u>查看物品</u></aqua></hover>") }
             }else {
                 event.message
             }
