@@ -9,7 +9,7 @@ import top.plutomc.plutocore.framework.menu.menu.MenuInventoryListener;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class MenuFramework {
+public final class MenuFramework {
     private static final HashMap<ItemStack, HashSet<Action>> BUTTON_ACTION_MAP = new HashMap<>();
     private static final HashMap<InventoryHolder, HashSet<Action>> MENU_ACTION_MAP = new HashMap<>();
     private static JavaPlugin plugin;
