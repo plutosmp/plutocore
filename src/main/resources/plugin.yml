@@ -5,6 +5,7 @@ author: GerryYuu
 api-version: 1.13
 depend:
   - PlaceholderAPI
+  - NBTAPI
 description: FUCK YOU PAPERMC
 permissions:
   plutocore:
