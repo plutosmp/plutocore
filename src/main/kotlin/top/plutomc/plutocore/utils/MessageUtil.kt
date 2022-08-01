@@ -18,9 +18,23 @@ object MessageUtil {
         s!!.let { MiniMessage.miniMessage().deserialize(it, *tagResolver) }.let { playerAudience.sendMessage(it) }
     }
 
+    fun send(sender: CommandSender, message: String?, placeholderTarget: Player, vararg tagResolver: TagResolver) {
+        var s = message
+        if (sender is Player) {
+            s = message?.let { PlaceholderAPI.setPlaceholders(placeholderTarget, it) }
+        }
+        val playerAudience = CorePlugin.bukkitAudiences.sender(sender)
+        s!!.let { MiniMessage.miniMessage().deserialize(it, *tagResolver) }.let { playerAudience.sendMessage(it) }
+    }
+
     fun broadcast(message: String?, vararg tagResolver: TagResolver) {
         CorePlugin.instance.server.onlinePlayers.forEach { send(it, message, *tagResolver) }
         send(CorePlugin.instance.server.consoleSender, message, *tagResolver)
+    }
+
+    fun broadcast(message: String?, placeholderTarget: Player, vararg tagResolver: TagResolver) {
+        CorePlugin.instance.server.onlinePlayers.forEach { send(it, message, *tagResolver) }
+        send(CorePlugin.instance.server.consoleSender, message, placeholderTarget, *tagResolver)
     }
 
     fun parseLegacyColor(string: String): String = ChatColor.translateAlternateColorCodes('&', string)

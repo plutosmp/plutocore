@@ -1,15 +1,21 @@
 package top.plutomc.plutocore.listeners
 
+import de.tr7zw.nbtapi.NBTItem
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
 import org.bukkit.GameMode
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
+import org.bukkit.event.player.AsyncPlayerChatEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
+import org.bukkit.inventory.ItemStack
 import top.plutomc.plutocore.CorePlugin
 import top.plutomc.plutocore.menus.ArmorMenu
+import top.plutomc.plutocore.utils.LinkParser
 import top.plutomc.plutocore.utils.MessageUtil
 
 class PlayerListener : Listener {
@@ -47,4 +53,23 @@ class PlayerListener : Listener {
             }
         }
     }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    fun onAsyncPlayerChat(event: AsyncPlayerChatEvent) {
+        if (event.isCancelled.not()) {
+            val s: String? = if (event.player.inventory.itemInMainHand.type != Material.AIR) {
+                val nbtString: String = NBTItem(event.player.inventory.itemInMainHand).asNBTString()
+                CorePlugin.instance.config.getString("chatFormat.itemShow.placeholder")
+                    ?.let { event.message.replace(it, "<hover:show_item:${event.player.inventory.itemInMainHand.type.toString().lowercase()}:1:$nbtString><aqua><u>查看物品</u></aqua></hover>") }
+            }else {
+                event.message
+            }
+            MessageUtil.broadcast(CorePlugin.instance.config.getString("chatFormat.format"),
+                Placeholder.parsed("player", event.player.displayName),
+                Placeholder.parsed("message", LinkParser.parseUrl(s,
+                CorePlugin.instance.config.getString("chatFormat.linkHighlight.hover"))))
+            event.isCancelled = true
+        }
+    }
+
 }
