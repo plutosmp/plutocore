@@ -25,11 +25,15 @@ public final class ArmorMenu extends LargeChestMenu {
                         .build()
         ));
         ItemStack[] itemStacks = target.getInventory().getArmorContents();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i <= 3; i++) {
             if (itemStacks[i] != null) {
-                addButton(i, new Button().setItemStack(itemStacks[0]));
+                addButton((char)(i + 48), new Button().setItemStack(itemStacks[-(i-3)]));
             } else {
-                addButton(i, new Button().setItemStack(new ItemStack(Material.AIR, 1)));
+                addButton((char)(i + 48), new Button().setItemStack(
+                        new ItemStackBuilder()
+                                .setMaterial(Material.GRAY_STAINED_GLASS_PANE)
+                                .setName(MessageUtil.INSTANCE.parseLegacyColor("&c这个位置没有装备"))
+                                .build()));
             }
         }
         addButton('X', new Button().setItemStack(
@@ -40,7 +44,6 @@ public final class ArmorMenu extends LargeChestMenu {
                 ).addAction(new ButtonAction() {
                     @Override
                     public void on(Player player) {
-                        player.playSound(player, Sound.BLOCK_IRON_DOOR_CLOSE, 2, 1);
                         player.closeInventory();
                     }
                 }.addClickType(ClickType.LEFT))
@@ -52,6 +55,12 @@ public final class ArmorMenu extends LargeChestMenu {
                 player.closeInventory();
             }
         }.addMenuActionType(MenuActionType.OPEN));
+        addAction(new MenuAction() {
+            @Override
+            public void on(Player player) {
+                player.playSound(player, Sound.BLOCK_IRON_DOOR_CLOSE, 2, 1);
+            }
+        }.addMenuActionType(MenuActionType.CLOSE));
         openForPlayer(reciver);
     }
 }
