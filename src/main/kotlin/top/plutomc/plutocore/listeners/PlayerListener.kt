@@ -1,5 +1,6 @@
 package top.plutomc.plutocore.listeners
 
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
 import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -18,7 +19,7 @@ class PlayerListener : Listener {
         // modify join message
         val msg = CorePlugin.instance.config.getString("joinAndQuitMessage.join")
         event.joinMessage = null
-        MessageUtil.broadcast(msg)
+        MessageUtil.broadcast(msg, Placeholder.parsed("player", event.player.name))
     }
 
     @EventHandler
@@ -29,6 +30,6 @@ class PlayerListener : Listener {
         // modify quit message
         val msg = CorePlugin.instance.config.getString("joinAndQuitMessage.quit")
         event.quitMessage = null
-        MessageUtil.broadcast(msg)
+        MessageUtil.broadcast(msg, Placeholder.parsed("player", event.player.name))
     }
 }
