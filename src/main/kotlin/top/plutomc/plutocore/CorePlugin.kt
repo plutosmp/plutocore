@@ -86,7 +86,7 @@ class CorePlugin : JavaPlugin() {
 
         // avoid issues cause by reloading
         server.onlinePlayers.forEach {
-            gameModeCache[it.uniqueId] = GameMode.SURVIVAL
+            gameModeCache[it.uniqueId] = it.gameMode
         }
 
         logger.info("Done.")
