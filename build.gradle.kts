@@ -14,6 +14,8 @@ repositories {
     maven("https://oss.sonatype.org/content/groups/public/")
     maven("https://maven.aliyun.com/repository/public")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+    maven("https://jitpack.io")
+    maven("https://repo.codemc.org/repository/maven-public/")
     mavenCentral()
     mavenLocal()
 }
