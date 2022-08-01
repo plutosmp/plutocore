@@ -20,6 +20,7 @@ public class Button {
         itemStack = new ItemStack(Material.STONE, 1);
         NBTItem nbtItem = new NBTItem(itemStack);
         nbtItem.setUUID("buttonUUID", uuid);
+        MenuFramework.getButtonActionMap().put(itemStack, ACTIONS);
     }
 
     public Button addAction(Action action) {

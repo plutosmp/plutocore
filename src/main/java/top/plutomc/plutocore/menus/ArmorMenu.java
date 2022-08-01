@@ -51,14 +51,14 @@ public final class ArmorMenu extends LargeChestMenu {
         addAction(new MenuAction() {
             @Override
             public void on(Player player) {
-                player.playSound(player, Sound.BLOCK_IRON_DOOR_OPEN, 2, 1);
+                player.playSound(player, Sound.BLOCK_IRON_DOOR_OPEN, 1, 2);
                 player.closeInventory();
             }
         }.addMenuActionType(MenuActionType.OPEN));
         addAction(new MenuAction() {
             @Override
             public void on(Player player) {
-                player.playSound(player, Sound.BLOCK_IRON_DOOR_CLOSE, 2, 1);
+                player.playSound(player, Sound.BLOCK_IRON_DOOR_CLOSE, 1, 2);
             }
         }.addMenuActionType(MenuActionType.CLOSE));
         openForPlayer(reciver);
