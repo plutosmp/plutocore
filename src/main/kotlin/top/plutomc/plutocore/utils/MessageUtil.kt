@@ -19,5 +19,6 @@ object MessageUtil {
 
     fun broadcast(message: String?, vararg tagResolver: TagResolver) {
         CorePlugin.instance.server.onlinePlayers.forEach { send(it, message, *tagResolver) }
+        send(CorePlugin.instance.server.consoleSender, message, *tagResolver)
     }
 }
