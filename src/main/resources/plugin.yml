@@ -17,7 +17,13 @@ permissions:
 commands:
   plutocore:
     permission: plutocore.cmd
+    description: plutocore
+  tickpersecond:
+    description: tps
+    aliases:
+      - tick
   gm:
     permission: plutocore.gamemode
+    description: gm
     aliases:
       - mode

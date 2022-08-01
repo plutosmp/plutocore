@@ -12,3 +12,4 @@ armorMenu:
 locale:
   succeed: "<green>成功。"
   gameModeWarn: "<red>检测到你的游戏模式被未许可的方式更改了。<br><red>这次更改的操作已经被阻止。<br><red>如果这是管理员帮你修改的，请联系他。"
+  tpsWarn: "<red>服务器每秒执行的刻已经小于 18。<br><red>你会感受到明显的卡顿。<br><red>请不要长时间呆在实体多的区块和开着卡服务器的机器。<br><red>谢谢合作。"

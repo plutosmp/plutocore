@@ -7,9 +7,12 @@ import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
 import top.plutomc.plutocore.commands.GameModeCommand
 import top.plutomc.plutocore.commands.MainCommand
+import top.plutomc.plutocore.commands.TpsCommand
 import top.plutomc.plutocore.framework.menu.MenuFramework
 import top.plutomc.plutocore.listeners.PlayerListener
 import top.plutomc.plutocore.utils.LocaleUtil
+import top.plutomc.plutocore.utils.MessageUtil
+import top.plutomc.plutocore.utils.NmsRefUtil
 import top.plutomc.plutocore.utils.TabListUtil
 import java.io.File
 import java.util.*
@@ -31,6 +34,7 @@ class CorePlugin : JavaPlugin() {
     private lateinit var tabListHeaderTask: BukkitTask
     private lateinit var tabListFooterTask: BukkitTask
     private lateinit var gameModeProtectTask: BukkitTask
+    private lateinit var tickMonitorTask: BukkitTask
     private lateinit var menuFramework: MenuFramework
 
     override fun onEnable() {
@@ -60,6 +64,8 @@ class CorePlugin : JavaPlugin() {
         // gm command
         server.getPluginCommand("gm")?.setExecutor(GameModeCommand())
         server.getPluginCommand("gm")?.tabCompleter = GameModeCommand()
+        // tps command
+        server.getPluginCommand("tickpersecond")?.setExecutor(TpsCommand())
 
         // init tasks
         // tablist
@@ -88,6 +94,14 @@ class CorePlugin : JavaPlugin() {
                 }
             }
         }.runTaskTimer(this, 0L, 1L)
+        // tick monitor
+        tickMonitorTask = object : BukkitRunnable() {
+            override fun run() {
+                if (NmsRefUtil.getRecentTps() < 18) {
+                    MessageUtil.broadcast(LocaleUtil.get("tpsWarn"))
+                }
+            }
+        }.runTaskTimerAsynchronously(instance, 0L, 20L * 60L * 10L)
 
         // avoid issues cause by reloading
         server.onlinePlayers.forEach {
