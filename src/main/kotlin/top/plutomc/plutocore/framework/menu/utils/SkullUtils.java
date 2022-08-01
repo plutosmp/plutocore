@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
-public class SkullUtils {
+public final class SkullUtils {
     private SkullUtils() {
     }
 

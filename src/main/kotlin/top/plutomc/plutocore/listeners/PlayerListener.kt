@@ -2,11 +2,14 @@ package top.plutomc.plutocore.listeners
 
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
 import org.bukkit.GameMode
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import top.plutomc.plutocore.CorePlugin
+import top.plutomc.plutocore.menus.ArmorMenu
 import top.plutomc.plutocore.utils.MessageUtil
 
 class PlayerListener : Listener {
@@ -31,5 +34,17 @@ class PlayerListener : Listener {
         val msg = CorePlugin.instance.config.getString("joinAndQuitMessage.quit")
         event.quitMessage = null
         MessageUtil.broadcast(msg, Placeholder.parsed("player", event.player.name))
+    }
+
+    @EventHandler
+    fun onPlayerInteractEntity(event: PlayerInteractEntityEvent) {
+        val entity = event.rightClicked
+        val player = event.player
+        if (player.isSneaking) {
+            if (entity is Player) {
+                val target: Player = entity
+                ArmorMenu(player, target)
+            }
+        }
     }
 }

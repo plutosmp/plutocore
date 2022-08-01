@@ -7,6 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
 import top.plutomc.plutocore.commands.GameModeCommand
 import top.plutomc.plutocore.commands.MainCommand
+import top.plutomc.plutocore.framework.menu.MenuFramework
 import top.plutomc.plutocore.listeners.PlayerListener
 import top.plutomc.plutocore.utils.LocaleUtil
 import top.plutomc.plutocore.utils.TabListUtil
@@ -30,6 +31,7 @@ class CorePlugin : JavaPlugin() {
     private lateinit var tabListHeaderTask: BukkitTask
     private lateinit var tabListFooterTask: BukkitTask
     private lateinit var gameModeProtectTask: BukkitTask
+    private lateinit var menuFramework: MenuFramework
 
     override fun onEnable() {
         logger.info("Enabling...")
@@ -37,6 +39,9 @@ class CorePlugin : JavaPlugin() {
 
         // init plugin cache system
         gameModeCache = HashMap()
+
+        // init menu framework
+        menuFramework = MenuFramework(this)
 
         // init adventure bukkitAudiences
         bukkitAudiences = BukkitAudiences.create(this)

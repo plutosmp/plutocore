@@ -6,6 +6,8 @@ tablist:
     - "如果说这个时候有一个苦力怕把你马炸死了"
   footer:
     - "那么会非常心疼的"
+armorMenu:
+  title: "<player> 的装备菜单"
 
 locale:
   succeed: "<green>成功。"
