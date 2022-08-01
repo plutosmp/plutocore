@@ -33,7 +33,12 @@ public final class ArmorMenu extends LargeChestMenu {
                         new ItemStackBuilder()
                                 .setMaterial(Material.GRAY_STAINED_GLASS_PANE)
                                 .setName(MessageUtil.INSTANCE.parseLegacyColor("&c这个位置没有装备"))
-                                .build()));
+                                .build()))
+                        .addAction(new ButtonAction() {
+                            @Override
+                            public void on(Player player) {
+                            }
+                        }.addClickType(ClickType.LEFT));
             }
         }
         addButton('X', new Button().setItemStack(

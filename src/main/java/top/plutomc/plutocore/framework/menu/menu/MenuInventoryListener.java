@@ -38,16 +38,21 @@ public final class MenuInventoryListener implements Listener {
 
         ItemStack itemStack = event.getCurrentItem();
 
-        for (Action action : MenuFramework.getButtonActionMap().get(itemStack)) {
-            if (action != null) {
-                if (action instanceof ButtonAction) {
-                    ButtonAction buttonAction = (ButtonAction) action;
-                    if (buttonAction.getClickTypes().contains(event.getClick())) {
-                        buttonAction.on(player);
+        try {
+            for (Action action : MenuFramework.getButtonActionMap().get(itemStack)) {
+                if (action != null) {
+                    if (action instanceof ButtonAction) {
+                        ButtonAction buttonAction = (ButtonAction) action;
+                        if (buttonAction.getClickTypes().contains(event.getClick())) {
+                            buttonAction.on(player);
+                        }
                     }
                 }
             }
+        }catch (Exception ignored) {
+
         }
+
     }
 
     @EventHandler
