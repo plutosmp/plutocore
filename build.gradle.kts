@@ -39,7 +39,7 @@ tasks.withType<JavaCompile> {
 }
 
 tasks.shadowJar {
-    relocate("kotlin", "libs.kotlin")
+    relocate("kotlin", "kotlin_runtime")
     relocate("net.kyori", "libs.net.kyori")
     relocate("org.jetbrains", "libs.org.jetbrains")
     relocate("org.intellij", "libs.org.intellij")
