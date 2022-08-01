@@ -38,7 +38,7 @@ class CorePlugin : JavaPlugin() {
         instance = this
 
         // init plugin cache system
-        gameModeCache = HashMap()
+        gameModeCache = HashMap() // gamemode cache
 
         // init menu framework
         menuFramework = MenuFramework(this)
@@ -53,15 +53,16 @@ class CorePlugin : JavaPlugin() {
         // register listeners
         server.pluginManager.registerEvents(PlayerListener(), this)
 
-        // register command - main command
+        // register commands
+        // main command
         server.getPluginCommand("plutocore")?.setExecutor(MainCommand())
         server.getPluginCommand("plutocore")?.tabCompleter = MainCommand()
-
-        // register command - gamemode command
+        // gm command
         server.getPluginCommand("gm")?.setExecutor(GameModeCommand())
         server.getPluginCommand("gm")?.tabCompleter = GameModeCommand()
 
-        // init tasks - TabList
+        // init tasks
+        // tablist
         tabListHeaderTask = object : BukkitRunnable() {
             override fun run() {
                 val s = config.getString("tablist.header")
@@ -74,8 +75,7 @@ class CorePlugin : JavaPlugin() {
                 TabListUtil.updateFooter(s)
             }
         }.runTaskTimerAsynchronously(this, 0L, 20L)
-
-        // init tasks - GameMode protect
+        // gamemode protect
         gameModeProtectTask = object : BukkitRunnable() {
             override fun run() {
                 server.onlinePlayers.forEach {
