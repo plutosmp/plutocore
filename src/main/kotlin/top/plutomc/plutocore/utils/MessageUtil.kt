@@ -9,30 +9,32 @@ import org.bukkit.entity.Player
 import top.plutomc.plutocore.CorePlugin
 
 object MessageUtil {
-    fun send(sender: CommandSender, message: String?, vararg tagResolver: TagResolver) {
-        var s = message
-        if (sender is Player) {
-            s = message?.let { PlaceholderAPI.setPlaceholders(sender, it) }
+    fun send(sender: CommandSender, message: String, vararg tagResolver: TagResolver) {
+        val s = if (sender is Player) {
+            PlaceholderAPI.setPlaceholders(sender, message)
+        } else {
+            message
         }
-        val playerAudience = CorePlugin.bukkitAudiences.sender(sender)
-        s!!.let { MiniMessage.miniMessage().deserialize(it, *tagResolver) }.let { playerAudience.sendMessage(it) }
+        val senderAudience = CorePlugin.bukkitAudiences.sender(sender)
+        senderAudience.sendMessage(MiniMessage.miniMessage().deserialize(s, *tagResolver))
     }
 
-    fun send(sender: CommandSender, message: String?, placeholderTarget: Player, vararg tagResolver: TagResolver) {
-        var s = message
-        if (sender is Player) {
-            s = message?.let { PlaceholderAPI.setPlaceholders(placeholderTarget, it) }
+    fun send(sender: CommandSender, message: String, placeholderTarget: Player, vararg tagResolver: TagResolver) {
+        val s = if (sender is Player) {
+            PlaceholderAPI.setPlaceholders(placeholderTarget, message)
+        } else {
+            message
         }
-        val playerAudience = CorePlugin.bukkitAudiences.sender(sender)
-        s!!.let { MiniMessage.miniMessage().deserialize(it, *tagResolver) }.let { playerAudience.sendMessage(it) }
+        val senderAudience = CorePlugin.bukkitAudiences.sender(sender)
+        senderAudience.sendMessage(MiniMessage.miniMessage().deserialize(s, *tagResolver))
     }
 
-    fun broadcast(message: String?, vararg tagResolver: TagResolver) {
+    fun broadcast(message: String, vararg tagResolver: TagResolver) {
         CorePlugin.instance.server.onlinePlayers.forEach { send(it, message, *tagResolver) }
         send(CorePlugin.instance.server.consoleSender, message, *tagResolver)
     }
 
-    fun broadcast(message: String?, placeholderTarget: Player, vararg tagResolver: TagResolver) {
+    fun broadcast(message: String, placeholderTarget: Player, vararg tagResolver: TagResolver) {
         CorePlugin.instance.server.onlinePlayers.forEach { send(it, message, *tagResolver) }
         send(CorePlugin.instance.server.consoleSender, message, placeholderTarget, *tagResolver)
     }

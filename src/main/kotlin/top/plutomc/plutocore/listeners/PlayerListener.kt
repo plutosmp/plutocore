@@ -24,8 +24,10 @@ class PlayerListener : Listener {
 
         // modify join message
         val msg = CorePlugin.instance.config.getString("joinAndQuitMessage.join")
-        event.joinMessage = null
-        MessageUtil.broadcast(msg, Placeholder.parsed("player", event.player.name))
+        if (msg != null) {
+            event.joinMessage = null
+            MessageUtil.broadcast(msg, event.player, Placeholder.parsed("player", event.player.name))
+        }
     }
 
     @EventHandler
@@ -35,8 +37,10 @@ class PlayerListener : Listener {
 
         // modify quit message
         val msg = CorePlugin.instance.config.getString("joinAndQuitMessage.quit")
-        event.quitMessage = null
-        MessageUtil.broadcast(msg, Placeholder.parsed("player", event.player.name))
+        if (msg != null) {
+            event.quitMessage = null
+            MessageUtil.broadcast(msg, event.player, Placeholder.parsed("player", event.player.name))
+        }
     }
 
     @EventHandler
@@ -54,19 +58,20 @@ class PlayerListener : Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     fun onAsyncPlayerChat(event: AsyncPlayerChatEvent) {
         if (event.isCancelled.not()) {
-            val s: String = event.message
-            MessageUtil.broadcast(
-                CorePlugin.instance.config.getString("chatFormat.format"),
-                Placeholder.parsed("player", event.player.displayName),
-                Placeholder.parsed(
-                    "message", LinkParser.parseUrl(
-                        s,
-                        CorePlugin.instance.config.getString("chatFormat.linkHighlight.hover")
+            val chatFormat = CorePlugin.instance.config.getString("chatFormat.format")
+            if (chatFormat != null) {
+                MessageUtil.broadcast(
+                    chatFormat,
+                    Placeholder.parsed("player", event.player.displayName),
+                    Placeholder.parsed(
+                        "message", LinkParser.parseUrl(
+                            event.message,
+                            CorePlugin.instance.config.getString("chatFormat.linkHighlight.hover")
+                        )
                     )
                 )
-            )
-            event.isCancelled = true
+                event.isCancelled = true
+            }
         }
     }
-
 }
