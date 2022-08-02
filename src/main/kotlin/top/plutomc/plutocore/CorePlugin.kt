@@ -5,7 +5,6 @@ import org.bukkit.GameMode
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
-import top.plutomc.plutocore.commands.GameModeCommand
 import top.plutomc.plutocore.commands.MainCommand
 import top.plutomc.plutocore.commands.TpsCommand
 import top.plutomc.plutocore.framework.menu.MenuFramework
@@ -33,7 +32,6 @@ class CorePlugin : JavaPlugin() {
 
     private lateinit var tabListHeaderTask: BukkitTask
     private lateinit var tabListFooterTask: BukkitTask
-    private lateinit var gameModeProtectTask: BukkitTask
     private lateinit var tickMonitorTask: BukkitTask
     private lateinit var menuFramework: MenuFramework
 
@@ -61,9 +59,7 @@ class CorePlugin : JavaPlugin() {
         // main command
         server.getPluginCommand("plutocore")?.setExecutor(MainCommand())
         server.getPluginCommand("plutocore")?.tabCompleter = MainCommand()
-        // gm command
-        server.getPluginCommand("gm")?.setExecutor(GameModeCommand())
-        server.getPluginCommand("gm")?.tabCompleter = GameModeCommand()
+
         // tps command
         server.getPluginCommand("tickpersecond")?.setExecutor(TpsCommand())
 
@@ -81,19 +77,7 @@ class CorePlugin : JavaPlugin() {
                 TabListUtil.updateFooter(s)
             }
         }.runTaskTimerAsynchronously(this, 0L, 20L)
-        // gamemode protect
-        gameModeProtectTask = object : BukkitRunnable() {
-            override fun run() {
-                server.onlinePlayers.forEach {
-                    if (gameModeCache.containsKey(it.uniqueId)) {
-                        if ((gameModeCache[it.uniqueId] == it.gameMode).not()) {
-                            it.gameMode = gameModeCache[it.uniqueId]!!
-                            LocaleUtil.send(it, "gameModeWarn")
-                        }
-                    }
-                }
-            }
-        }.runTaskTimer(this, 0L, 1L)
+
         // tick monitor
         tickMonitorTask = object : BukkitRunnable() {
             override fun run() {
