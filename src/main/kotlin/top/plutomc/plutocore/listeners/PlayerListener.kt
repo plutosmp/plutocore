@@ -1,7 +1,6 @@
 package top.plutomc.plutocore.listeners
 
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
-import org.bukkit.GameMode
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -18,10 +17,6 @@ import top.plutomc.plutocore.utils.MessageUtil
 class PlayerListener : Listener {
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
-        // switch gamemode to survival & add cache
-        event.player.gameMode = GameMode.SURVIVAL
-        CorePlugin.gameModeCache[event.player.uniqueId] = GameMode.SURVIVAL
-
         // modify join message
         val msg = CorePlugin.instance.config.getString("joinAndQuitMessage.join")
         if (msg != null) {
@@ -32,9 +27,6 @@ class PlayerListener : Listener {
 
     @EventHandler
     fun onPlayerQuit(event: PlayerQuitEvent) {
-        // remove gamemode cache
-        CorePlugin.gameModeCache.remove(event.player.uniqueId)
-
         // modify quit message
         val msg = CorePlugin.instance.config.getString("joinAndQuitMessage.quit")
         if (msg != null) {
