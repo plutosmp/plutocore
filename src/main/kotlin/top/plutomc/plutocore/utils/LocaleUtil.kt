@@ -5,15 +5,18 @@ import org.bukkit.command.CommandSender
 import top.plutomc.plutocore.CorePlugin
 
 object LocaleUtil {
-    fun send(sender: CommandSender, localeKey: String = "error", vararg tagResolver: TagResolver) {
-        MessageUtil.send(sender, CorePlugin.instance.config.getString("locale.$localeKey"), *tagResolver)
+    fun send(sender: CommandSender, localeKey: String, vararg tagResolver: TagResolver) {
+        val locale = CorePlugin.instance.config.getString("locale.$localeKey")
+        if (locale != null) {
+            MessageUtil.send(sender, locale, *tagResolver)
+        }
     }
 
     fun get(localeKey: String): String {
-        val string = CorePlugin.instance.config.getString("locale.$localeKey")
-        if (string != null) {
-            return string
+        val locale = CorePlugin.instance.config.getString("locale.$localeKey")
+        if (locale != null) {
+            return locale
         }
-        return ""
+        return "ERROR"
     }
 }
