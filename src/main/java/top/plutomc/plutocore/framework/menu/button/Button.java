@@ -3,8 +3,8 @@ package top.plutomc.plutocore.framework.menu.button;
 import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import top.plutomc.plutocore.framework.menu.action.Action;
 import top.plutomc.plutocore.framework.menu.MenuFramework;
+import top.plutomc.plutocore.framework.menu.action.Action;
 import top.plutomc.plutocore.framework.menu.utils.ButtonUtils;
 
 import java.util.HashSet;
@@ -38,7 +38,7 @@ public class Button {
         return this;
     }
 
-    public UUID getUuid() {
+    public UUID getUUID() {
         return uuid;
     }
 }

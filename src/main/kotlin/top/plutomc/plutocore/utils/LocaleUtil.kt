@@ -9,7 +9,7 @@ object LocaleUtil {
         MessageUtil.send(sender, CorePlugin.instance.config.getString("locale.$localeKey"), *tagResolver)
     }
 
-    fun get(localeKey: String) : String {
+    fun get(localeKey: String): String {
         val string = CorePlugin.instance.config.getString("locale.$localeKey")
         if (string != null) {
             return string

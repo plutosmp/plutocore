@@ -14,9 +14,11 @@ import top.plutomc.plutocore.framework.menu.button.ItemStackBuilder;
 import top.plutomc.plutocore.framework.menu.menu.types.LargeChestMenu;
 import top.plutomc.plutocore.utils.MessageUtil;
 
+import java.util.Objects;
+
 public final class ArmorMenu extends LargeChestMenu {
     public ArmorMenu(Player reciver, Player target) {
-        super(MessageUtil.INSTANCE.parseLegacyColor(CorePlugin.Companion.getInstance().getConfig().getString("armorMenu.title").replace("<player>", target.getName())));
+        super(MessageUtil.INSTANCE.parseLegacyColor(Objects.requireNonNull(CorePlugin.Companion.getInstance().getConfig().getString("armorMenu.title")).replace("<player>", target.getName())));
         setPattern("########X", "####0####", "####1####", "####2####", "####3####", "#########");
         addButton('#', new Button().setItemStack(
                 new ItemStackBuilder()
@@ -27,9 +29,9 @@ public final class ArmorMenu extends LargeChestMenu {
         ItemStack[] itemStacks = target.getInventory().getArmorContents();
         for (int i = 0; i <= 3; i++) {
             if (itemStacks[i] != null) {
-                addButton((char)(i + 48), new Button().setItemStack(itemStacks[-(i-3)]));
+                addButton((char) (i + 48), new Button().setItemStack(itemStacks[-(i - 3)]));
             } else {
-                addButton((char)(i + 48), new Button().setItemStack(
+                addButton((char) (i + 48), new Button().setItemStack(
                         new ItemStackBuilder()
                                 .setMaterial(Material.GRAY_STAINED_GLASS_PANE)
                                 .setName(MessageUtil.INSTANCE.parseLegacyColor("&c这个位置没有装备"))

@@ -13,8 +13,6 @@ armorMenu:
 
 chatFormat:
   format: "<white><player>: <gray><message>"
-  itemShow:
-    placeholder: "<item>"
   linkHighlight:
     hover: "<aqua>点击打开！"
 

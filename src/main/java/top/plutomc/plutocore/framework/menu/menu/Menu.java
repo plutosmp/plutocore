@@ -3,9 +3,9 @@ package top.plutomc.plutocore.framework.menu.menu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+import top.plutomc.plutocore.framework.menu.MenuFramework;
 import top.plutomc.plutocore.framework.menu.action.Action;
 import top.plutomc.plutocore.framework.menu.button.Button;
-import top.plutomc.plutocore.framework.menu.MenuFramework;
 
 import java.util.HashSet;
 

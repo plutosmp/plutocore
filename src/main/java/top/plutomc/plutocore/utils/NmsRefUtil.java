@@ -7,7 +7,7 @@ public final class NmsRefUtil {
     private NmsRefUtil() {
     }
 
-    public static double getRecentTps(){
+    public static double getRecentTps() {
         try {
             Object serverInstance = Class.forName("net.minecraft.server.MinecraftServer").getMethod("getServer").invoke(null);
             Field recentTpsField = serverInstance.getClass().getField("recentTps");

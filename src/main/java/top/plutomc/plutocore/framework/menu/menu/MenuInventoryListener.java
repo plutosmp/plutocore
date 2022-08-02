@@ -8,19 +8,17 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import top.plutomc.plutocore.framework.menu.MenuFramework;
 import top.plutomc.plutocore.framework.menu.action.Action;
 import top.plutomc.plutocore.framework.menu.action.ButtonAction;
 import top.plutomc.plutocore.framework.menu.action.MenuAction;
 import top.plutomc.plutocore.framework.menu.action.MenuActionType;
-import top.plutomc.plutocore.framework.menu.MenuFramework;
 import top.plutomc.plutocore.framework.menu.utils.ButtonUtils;
 
 public final class MenuInventoryListener implements Listener {
     @EventHandler
     public void inventoryClickEvent(InventoryClickEvent event) {
-        if (!(event.getWhoClicked() instanceof Player)) return;
-
-        Player player = (Player) event.getWhoClicked();
+        if (!(event.getWhoClicked() instanceof Player player)) return;
 
         if (event.getClickedInventory() == null) return;
 
@@ -41,15 +39,14 @@ public final class MenuInventoryListener implements Listener {
         try {
             for (Action action : MenuFramework.getButtonActionMap().get(itemStack)) {
                 if (action != null) {
-                    if (action instanceof ButtonAction) {
-                        ButtonAction buttonAction = (ButtonAction) action;
+                    if (action instanceof ButtonAction buttonAction) {
                         if (buttonAction.getClickTypes().contains(event.getClick())) {
                             buttonAction.on(player);
                         }
                     }
                 }
             }
-        }catch (Exception ignored) {
+        } catch (Exception ignored) {
 
         }
 
@@ -57,9 +54,7 @@ public final class MenuInventoryListener implements Listener {
 
     @EventHandler
     public void inventoryOpenEvent(InventoryOpenEvent event) {
-        if (!(event.getPlayer() instanceof Player)) return;
-
-        Player player = (Player) event.getPlayer();
+        if (!(event.getPlayer() instanceof Player player)) return;
 
         if (event.getInventory().getHolder() == null) return;
 
@@ -68,8 +63,7 @@ public final class MenuInventoryListener implements Listener {
         if (!MenuFramework.getMenuActionMap().containsKey(inventoryHolder)) return;
 
         for (Action action : MenuFramework.getMenuActionMap().get(inventoryHolder)) {
-            if (action instanceof MenuAction) {
-                MenuAction menuAction = (MenuAction) action;
+            if (action instanceof MenuAction menuAction) {
                 if (menuAction.getMenuActionTypes().contains(MenuActionType.OPEN)) {
                     action.on(player);
                 }
@@ -79,9 +73,7 @@ public final class MenuInventoryListener implements Listener {
 
     @EventHandler
     public void inventoryCloseEvent(InventoryCloseEvent event) {
-        if (!(event.getPlayer() instanceof Player)) return;
-
-        Player player = (Player) event.getPlayer();
+        if (!(event.getPlayer() instanceof Player player)) return;
 
         if (event.getInventory().getHolder() == null) return;
 
@@ -90,8 +82,7 @@ public final class MenuInventoryListener implements Listener {
         if (!MenuFramework.getMenuActionMap().containsKey(inventoryHolder)) return;
 
         for (Action action : MenuFramework.getMenuActionMap().get(inventoryHolder)) {
-            if (action instanceof MenuAction) {
-                MenuAction menuAction = (MenuAction) action;
+            if (action instanceof MenuAction menuAction) {
                 if (menuAction.getMenuActionTypes().contains(MenuActionType.CLOSE)) {
                     action.on(player);
                 }
