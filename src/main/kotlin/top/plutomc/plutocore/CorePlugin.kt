@@ -1,7 +1,6 @@
 package top.plutomc.plutocore
 
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
-import org.bukkit.GameMode
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
@@ -14,15 +13,12 @@ import top.plutomc.plutocore.utils.MessageUtil
 import top.plutomc.plutocore.utils.NmsRefUtil
 import top.plutomc.plutocore.utils.TabListUtil
 import java.io.File
-import java.util.*
 
 class CorePlugin : JavaPlugin() {
     companion object {
         lateinit var instance: JavaPlugin
             private set
         lateinit var bukkitAudiences: BukkitAudiences
-            private set
-        lateinit var gameModeCache: MutableMap<UUID, GameMode>
             private set
 
         fun reloadPlugin() {
@@ -37,10 +33,8 @@ class CorePlugin : JavaPlugin() {
 
     override fun onEnable() {
         logger.info("Enabling...")
+        // init instance
         instance = this
-
-        // init plugin cache system
-        gameModeCache = HashMap() // gamemode cache
 
         // init menu framework
         menuFramework = MenuFramework(this)
@@ -86,11 +80,6 @@ class CorePlugin : JavaPlugin() {
                 }
             }
         }.runTaskTimerAsynchronously(instance, 0L, 20L * 60L * 10L)
-
-        // avoid issues cause by reloading
-        server.onlinePlayers.forEach {
-            gameModeCache[it.uniqueId] = it.gameMode
-        }
 
         logger.info("Done.")
     }
