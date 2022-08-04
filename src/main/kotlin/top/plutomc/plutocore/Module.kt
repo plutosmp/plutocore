@@ -79,21 +79,19 @@ abstract class Module {
     fun createLocaleFile(lang: String) = getLocaleFile(lang).createNewFile()
 
     fun addLocaleContent(lang: String, key: String, vararg content: String) {
-        if (content.size > 1) {
-            if (getLocaleConfig(lang).contains(key)) {
-                if (getLocaleConfig(lang).get(key) !is List<*>) {
-                    getLocaleConfig(lang).set(key, listOf(*content))
-                }
+        val locale = getLocaleConfig(lang)
+        if (!locale.contains(key)) {
+            if (content.size > 1) {
+                locale.addDefault(key, listOf(content))
             } else {
-                getLocaleConfig(lang).set(key, listOf(*content))
+                locale.addDefault(key, content[0])
             }
         } else {
-            if (getLocaleConfig(lang).contains(key)) {
-                if (getLocaleConfig(lang).get(key) !is String) {
-                    getLocaleConfig(lang).set(key, content[0])
-                }
-            } else {
-                getLocaleConfig(lang).set(key, content[0])
+            if (content.size > 1 && locale.get(key) !is List<*>) {
+                locale.set(key, listOf(content)); return
+            }
+            if (content.size == 1 && locale.get(key) !is String) {
+                locale.set(key, listOf(content[0])); return
             }
         }
     }
