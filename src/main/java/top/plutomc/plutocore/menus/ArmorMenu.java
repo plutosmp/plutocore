@@ -28,7 +28,8 @@ public final class ArmorMenu extends LargeChestMenu {
         ));
         ItemStack[] itemStacks = target.getInventory().getArmorContents();
         for (int i = 0; i <= 3; i++) {
-            if (itemStacks[i] != null) {
+            // if armor slot is empty will cause issues
+            if (itemStacks[i] != null && itemStacks[i].getType() != Material.AIR) {
                 addButton((char) (i + 48), new Button().setItemStack(itemStacks[-(i - 3)]));
             } else {
                 addButton((char) (i + 48), new Button().setItemStack(
