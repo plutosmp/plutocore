@@ -3,7 +3,6 @@ package top.plutomc.plutocore
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
-import org.bukkit.scheduler.BukkitTask
 import top.plutomc.plutocore.commands.MainCommand
 import top.plutomc.plutocore.commands.TpsCommand
 import top.plutomc.plutocore.framework.menu.MenuFramework
@@ -15,6 +14,8 @@ import top.plutomc.plutocore.utils.TabListUtil
 import java.io.File
 
 class CorePlugin : JavaPlugin() {
+
+
     companion object {
         lateinit var instance: JavaPlugin
             private set
@@ -26,18 +27,13 @@ class CorePlugin : JavaPlugin() {
         }
     }
 
-    private lateinit var tabListHeaderTask: BukkitTask
-    private lateinit var tabListFooterTask: BukkitTask
-    private lateinit var tickMonitorTask: BukkitTask
-    private lateinit var menuFramework: MenuFramework
-
     override fun onEnable() {
         logger.info("Enabling...")
         // init instance
         instance = this
 
         // init menu framework
-        menuFramework = MenuFramework(this)
+        MenuFramework(this)
 
         // init adventure bukkitAudiences
         bukkitAudiences = BukkitAudiences.create(this)
@@ -57,15 +53,17 @@ class CorePlugin : JavaPlugin() {
         // tps command
         server.getPluginCommand("tickpersecond")?.setExecutor(TpsCommand())
 
+        config
+
         // init tasks
         // tablist
-        tabListHeaderTask = object : BukkitRunnable() {
+        object : BukkitRunnable() {
             override fun run() {
                 val s = config.getString("tablist.header")
                 TabListUtil.updateHeader(s)
             }
         }.runTaskTimerAsynchronously(this, 0L, 20L)
-        tabListFooterTask = object : BukkitRunnable() {
+        object : BukkitRunnable() {
             override fun run() {
                 val s = config.getString("tablist.footer")
                 TabListUtil.updateFooter(s)
@@ -73,7 +71,7 @@ class CorePlugin : JavaPlugin() {
         }.runTaskTimerAsynchronously(this, 0L, 20L)
 
         // tick monitor
-        tickMonitorTask = object : BukkitRunnable() {
+        object : BukkitRunnable() {
             override fun run() {
                 if (NmsRefUtil.getRecentTps() < 18) {
                     MessageUtil.broadcast(LocaleUtil.get("tpsWarn"))
