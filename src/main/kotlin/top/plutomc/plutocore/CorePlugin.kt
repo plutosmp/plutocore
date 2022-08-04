@@ -15,7 +15,6 @@ import java.io.File
 
 class CorePlugin : JavaPlugin() {
 
-
     companion object {
         lateinit var instance: JavaPlugin
             private set

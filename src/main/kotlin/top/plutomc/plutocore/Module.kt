@@ -1,5 +1,7 @@
 package top.plutomc.plutocore
 
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
+import org.bukkit.command.CommandSender
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
@@ -10,6 +12,7 @@ import java.util.logging.Level
 
 abstract class Module {
 
+    val main = CorePlugin.instance
     var name: String
         private set
     var dataFolder: File
@@ -92,6 +95,39 @@ abstract class Module {
             }
             if (content.size == 1 && locale.get(key) !is String) {
                 locale.set(key, listOf(content[0])); return
+            }
+        }
+    }
+
+    fun getLocaleContent(lang: String, key: String): Any? =
+        if (getLocaleFile(lang).exists() && getLocaleConfig(lang).get(key) != null)
+            getLocaleConfig(lang).get(key)
+        else getLocaleConfig("zh_cn").get(key)
+
+
+    fun locale(target: CommandSender, key: String, vararg tagResolver: TagResolver) {
+        if (target is Player) {
+            val player: Player = target
+            val lang = player.locale
+            val localeContent = getLocaleContent(lang, key)
+            if (localeContent != null) {
+                when (localeContent) {
+                    is String -> {
+                        MessageUtil.send(target, localeContent, *tagResolver)
+                    }
+
+                    is List<*> -> {
+                        localeContent.forEach {
+                            val content = it.toString()
+                            MessageUtil.send(target, content, *tagResolver)
+                        }
+                    }
+
+                    else -> {
+                        val content = localeContent.toString()
+                        MessageUtil.send(target, content, *tagResolver)
+                    }
+                }
             }
         }
     }
