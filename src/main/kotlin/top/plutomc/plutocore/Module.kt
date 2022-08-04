@@ -41,7 +41,7 @@ abstract class Module {
 
     fun saveConfig() = config.save(configFile)
 
-    fun debug(msg: String) = info("DEBUG - $msg")
+    fun debug(msg: String) = info("[DEBUG] $msg")
 
     fun debugWithDebuggers(msg: String) {
         debug(msg)
