@@ -25,7 +25,7 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.2")
     compileOnly("org.spigotmc:spigot-api:1.19.1-R0.1-SNAPSHOT")
     compileOnly("de.tr7zw:item-nbt-api-plugin:2.10.0")
-    implementation("net.kyori:adventure-platform-bukkit:4.1.1")
+    implementation("net.kyori:adventure-platform-bukkit:4.1.2")
     implementation("net.kyori:adventure-api:4.11.0")
     implementation("net.kyori:adventure-text-minimessage:4.11.0")
     implementation(kotlin("stdlib"))
