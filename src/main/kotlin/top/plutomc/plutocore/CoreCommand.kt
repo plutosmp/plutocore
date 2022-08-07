@@ -1,12 +1,11 @@
-package top.plutomc.plutocore.commands
+package top.plutomc.plutocore
 
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabExecutor
-import top.plutomc.plutocore.CorePlugin
 import top.plutomc.plutocore.utils.MessageUtil
 
-class MainCommand : TabExecutor {
+class CoreCommand : TabExecutor {
     override fun onTabComplete(
         sender: CommandSender,
         command: Command,

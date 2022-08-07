@@ -2,15 +2,12 @@ package top.plutomc.plutocore
 
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
 import org.bukkit.plugin.java.JavaPlugin
-import org.bukkit.scheduler.BukkitRunnable
-import top.plutomc.plutocore.commands.MainCommand
-import top.plutomc.plutocore.commands.TpsCommand
 import top.plutomc.plutocore.framework.menu.MenuFramework
-import top.plutomc.plutocore.listeners.PlayerListener
-import top.plutomc.plutocore.utils.LocaleUtil
-import top.plutomc.plutocore.utils.MessageUtil
-import top.plutomc.plutocore.utils.NmsRefUtil
-import top.plutomc.plutocore.utils.TabListUtil
+import top.plutomc.plutocore.modules.armormenu.ArmorMenu
+import top.plutomc.plutocore.modules.chat.Chat
+import top.plutomc.plutocore.modules.joinquitmessage.JoinQuitMessage
+import top.plutomc.plutocore.modules.tablist.TabList
+import top.plutomc.plutocore.modules.tickwarn.TickWarn
 import java.io.File
 
 class CorePlugin : JavaPlugin() {
@@ -20,63 +17,85 @@ class CorePlugin : JavaPlugin() {
             private set
         lateinit var bukkitAudiences: BukkitAudiences
             private set
+        lateinit var modules: HashMap<String, Module>
+            private set
 
         fun reloadPlugin() {
             instance.reloadConfig()
+            modules.keys.forEach {
+                Module.hardReload(modules[it]!!)
+            }
+        }
+
+        fun registerModule(module: Module) {
+            modules[module.name] = module
+        }
+
+        fun unregisterModule(name: String) {
+            modules[name]!!.info("Unloading ${modules[name]!!.name}...")
+            try {
+                Module.hardUnload(modules[name]!!)
+                modules[name]!!.info("Unloaded ${modules[name]!!.name}.")
+            } catch (e: Exception) {
+                modules.remove(name)
+                modules[name]!!.severe("Failed to unload module: ${modules[name]!!.name}.", e)
+            }
+            modules.remove(name)
+        }
+
+        fun unregisterAllModules() {
+            val waitingToRemove = HashSet<String>()
+            modules.keys.forEach {
+                modules[it]!!.info("Unloading ${modules[it]!!.name}...")
+                try {
+                    Module.hardUnload(modules[it]!!)
+                    modules[it]!!.info("Unloaded ${modules[it]!!.name}.")
+                } catch (e: Exception) {
+                    waitingToRemove.add(it)
+                    modules[it]!!.severe("Failed to unload module: ${modules[it]!!.name}.", e)
+                }
+                waitingToRemove.add(it)
+            }
+            for (s in waitingToRemove) {
+                modules.remove(s)
+            }
         }
     }
 
+
     override fun onEnable() {
         logger.info("Enabling...")
-        // init instance
+
         instance = this
 
-        // init menu framework
+        modules = HashMap()
+
         MenuFramework(this)
 
-        // init adventure bukkitAudiences
         bukkitAudiences = BukkitAudiences.create(this)
 
-        // check if config file wasn't created
         val file = File(dataFolder, "config.yml")
         if (file.exists().not()) saveDefaultConfig()
 
-        // register listeners
-        server.pluginManager.registerEvents(PlayerListener(), this)
+        registerModule(JoinQuitMessage())
+        registerModule(TickWarn())
+        registerModule(TabList())
+        registerModule(Chat())
+        registerModule(ArmorMenu())
 
-        // register commands
-        // main command
-        server.getPluginCommand("plutocore")?.setExecutor(MainCommand())
-        server.getPluginCommand("plutocore")?.tabCompleter = MainCommand()
-
-        // tps command
-        server.getPluginCommand("tickpersecond")?.setExecutor(TpsCommand())
-
-        config
-
-        // init tasks
-        // tablist
-        object : BukkitRunnable() {
-            override fun run() {
-                val s = config.getString("tablist.header")
-                TabListUtil.updateHeader(s)
+        modules.keys.forEach {
+            modules[it]!!.info("Loading ${modules[it]!!.name}...")
+            try {
+                modules[it]!!.load()
+                modules[it]!!.info("Loaded ${modules[it]!!.name}.")
+            } catch (e: Exception) {
+                modules[it]!!.severe("Failed to load module: ${modules[it]!!.name}.", e)
             }
-        }.runTaskTimerAsynchronously(this, 0L, 20L)
-        object : BukkitRunnable() {
-            override fun run() {
-                val s = config.getString("tablist.footer")
-                TabListUtil.updateFooter(s)
-            }
-        }.runTaskTimerAsynchronously(this, 0L, 20L)
 
-        // tick monitor
-        object : BukkitRunnable() {
-            override fun run() {
-                if (NmsRefUtil.getRecentTps() < 18) {
-                    MessageUtil.broadcast(LocaleUtil.get("tpsWarn"))
-                }
-            }
-        }.runTaskTimerAsynchronously(instance, 0L, 20L * 60L * 10L)
+        }
+
+        server.getPluginCommand("plutocore")?.setExecutor(CoreCommand())
+        server.getPluginCommand("plutocore")?.tabCompleter = CoreCommand()
 
         logger.info("Done.")
     }
@@ -84,11 +103,11 @@ class CorePlugin : JavaPlugin() {
     override fun onDisable() {
         logger.info("Disabling...")
 
-        // close bukkitAudiences, to avoid unsafe disable
         bukkitAudiences.close()
 
-        // close tasks
         server.scheduler.cancelTasks(this)
+
+        unregisterAllModules()
 
         logger.info("Done.")
     }

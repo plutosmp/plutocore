@@ -17,11 +17,13 @@ repositories {
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     maven("https://jitpack.io")
     maven("https://repo.codemc.org/repository/maven-public/")
+    maven("https://libraries.minecraft.net")
     mavenCentral()
     mavenLocal()
 }
 
 dependencies {
+    compileOnly("com.mojang:brigadier:1.0.18")
     compileOnly("me.clip:placeholderapi:2.11.2")
     compileOnly("org.spigotmc:spigot-api:1.19.1-R0.1-SNAPSHOT")
     compileOnly("de.tr7zw:item-nbt-api-plugin:2.10.0")

@@ -17,13 +17,13 @@ import top.plutomc.plutocore.utils.MessageUtil;
 import java.util.Objects;
 
 public final class ArmorMenu extends LargeChestMenu {
-    public ArmorMenu(Player reciver, Player target) {
+    public ArmorMenu(Player reciver, Player target, String placeholder, String noWeapon, String close) {
         super(MessageUtil.INSTANCE.parseLegacyColor(Objects.requireNonNull(CorePlugin.Companion.getInstance().getConfig().getString("armorMenu.title")).replace("<player>", target.getName())));
         setPattern("########X", "####0####", "####1####", "####2####", "####3####", "#########");
         addButton('#', new Button().setItemStack(
                 new ItemStackBuilder()
                         .setMaterial(Material.GRAY_STAINED_GLASS_PANE)
-                        .setName(MessageUtil.INSTANCE.parseLegacyColor("&7占位符"))
+                        .setName(MessageUtil.INSTANCE.parseLegacyColor(placeholder))
                         .build()
         ));
         ItemStack[] itemStacks = target.getInventory().getArmorContents();
@@ -35,7 +35,7 @@ public final class ArmorMenu extends LargeChestMenu {
                 addButton((char) (i + 48), new Button().setItemStack(
                         new ItemStackBuilder()
                                 .setMaterial(Material.GRAY_STAINED_GLASS_PANE)
-                                .setName(MessageUtil.INSTANCE.parseLegacyColor("&c这个位置没有装备"))
+                                .setName(MessageUtil.INSTANCE.parseLegacyColor(noWeapon))
                                 .build()))
                         .addAction(new ButtonAction() {
                             @Override
@@ -45,9 +45,9 @@ public final class ArmorMenu extends LargeChestMenu {
             }
         }
         addButton('X', new Button().setItemStack(
-                        new ItemStackBuilder()
-                                .setMaterial(Material.RED_STAINED_GLASS_PANE)
-                                .setName(MessageUtil.INSTANCE.parseLegacyColor("&c关闭"))
+                new ItemStackBuilder()
+                        .setMaterial(Material.RED_STAINED_GLASS_PANE)
+                        .setName(MessageUtil.INSTANCE.parseLegacyColor(close))
                                 .build()
                 ).addAction(new ButtonAction() {
                     @Override
