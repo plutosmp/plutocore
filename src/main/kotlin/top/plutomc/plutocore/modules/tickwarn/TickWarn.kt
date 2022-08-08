@@ -38,7 +38,7 @@ class TickWarn : Module("tickWarn") {
         )
         saveLocaleContent("en_us")
 
-        registerTask("tickMonitor", object : BukkitRunnable() {
+        registerTask("tickWarn", object : BukkitRunnable() {
             override fun run() {
                 if (NmsRefUtil.getRecentTps() < 18) {
                     localeBroadcast("warn")
