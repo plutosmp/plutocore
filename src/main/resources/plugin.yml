@@ -18,3 +18,7 @@ commands:
   plutocore:
     permission: plutocore.cmd
     description: plutocore
+  langtip:
+    description: langtip
+  lang:
+    description: lang

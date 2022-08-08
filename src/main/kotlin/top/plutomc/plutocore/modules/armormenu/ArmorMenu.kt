@@ -7,6 +7,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import top.plutomc.plutocore.Module
 import top.plutomc.plutocore.menus.ArmorMenu
+import top.plutomc.plutocore.modules.localecache.LocaleCache
 import top.plutomc.plutocore.utils.TextUtil
 
 class ArmorMenu : Module("armorMenu"), Listener {
@@ -52,13 +53,20 @@ class ArmorMenu : Module("armorMenu"), Listener {
                     player,
                     target,
                     TextUtil.toLegacy(
-                        MiniMessage.miniMessage().deserialize(getLocaleContentAsString(player.locale, "placeholder"))
+                        MiniMessage.miniMessage().deserialize(
+                            getLocaleContentAsString(
+                                LocaleCache.getLocale(player.uniqueId),
+                                "placeholder"
+                            )
+                        )
                     ),
                     TextUtil.toLegacy(
-                        MiniMessage.miniMessage().deserialize(getLocaleContentAsString(player.locale, "noWeapon"))
+                        MiniMessage.miniMessage()
+                            .deserialize(getLocaleContentAsString(LocaleCache.getLocale(player.uniqueId), "noWeapon"))
                     ),
                     TextUtil.toLegacy(
-                        MiniMessage.miniMessage().deserialize(getLocaleContentAsString(player.locale, "close"))
+                        MiniMessage.miniMessage()
+                            .deserialize(getLocaleContentAsString(LocaleCache.getLocale(player.uniqueId), "close"))
                     )
                 )
             }

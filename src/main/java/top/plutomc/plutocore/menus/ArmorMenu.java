@@ -45,9 +45,9 @@ public final class ArmorMenu extends LargeChestMenu {
             }
         }
         addButton('X', new Button().setItemStack(
-                new ItemStackBuilder()
-                        .setMaterial(Material.RED_STAINED_GLASS_PANE)
-                        .setName(MessageUtil.INSTANCE.parseLegacyColor(close))
+                        new ItemStackBuilder()
+                                .setMaterial(Material.RED_STAINED_GLASS_PANE)
+                                .setName(MessageUtil.INSTANCE.parseLegacyColor(close))
                                 .build()
                 ).addAction(new ButtonAction() {
                     @Override

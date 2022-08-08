@@ -7,7 +7,9 @@ import top.plutomc.plutocore.framework.menu.MenuFramework
 import top.plutomc.plutocore.modules.armormenu.ArmorMenu
 import top.plutomc.plutocore.modules.chat.Chat
 import top.plutomc.plutocore.modules.joinquitmessage.JoinQuitMessage
+import top.plutomc.plutocore.modules.localecache.LocaleCache
 import top.plutomc.plutocore.modules.motd.Motd
+import top.plutomc.plutocore.modules.playerprofile.PlayerProfile
 import top.plutomc.plutocore.modules.tablist.TabList
 import top.plutomc.plutocore.modules.tickwarn.TickWarn
 import java.io.File
@@ -80,6 +82,8 @@ class CorePlugin : JavaPlugin() {
         val file = File(dataFolder, "config.yml")
         if (file.exists().not()) saveDefaultConfig()
 
+        registerModule(PlayerProfile())
+        registerModule(LocaleCache())
         registerModule(JoinQuitMessage())
         registerModule(TickWarn())
         registerModule(TabList())

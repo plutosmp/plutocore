@@ -4,6 +4,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.scheduler.BukkitRunnable
 import top.plutomc.plutocore.CorePlugin
 import top.plutomc.plutocore.Module
+import top.plutomc.plutocore.modules.localecache.LocaleCache
 
 class TabList : Module("tabList") {
     override fun load() {
@@ -48,7 +49,8 @@ class TabList : Module("tabList") {
                 main.server.onlinePlayers.forEach {
                     CorePlugin.bukkitAudiences.player(it)
                         .sendPlayerListHeader(
-                            MiniMessage.miniMessage().deserialize(getLocaleContentAsString(it.locale, "header"))
+                            MiniMessage.miniMessage()
+                                .deserialize(getLocaleContentAsString(LocaleCache.getLocale(it.uniqueId), "header"))
                         )
                 }
             }
@@ -59,7 +61,8 @@ class TabList : Module("tabList") {
                 main.server.onlinePlayers.forEach {
                     CorePlugin.bukkitAudiences.player(it)
                         .sendPlayerListFooter(
-                            MiniMessage.miniMessage().deserialize(getLocaleContentAsString(it.locale, "footer"))
+                            MiniMessage.miniMessage()
+                                .deserialize(getLocaleContentAsString(LocaleCache.getLocale(it.uniqueId), "footer"))
                         )
                 }
             }

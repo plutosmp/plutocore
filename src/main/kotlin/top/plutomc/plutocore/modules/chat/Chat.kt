@@ -6,6 +6,7 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerChatEvent
 import top.plutomc.plutocore.Module
+import top.plutomc.plutocore.modules.localecache.LocaleCache
 import top.plutomc.plutocore.utils.LinkParser
 import top.plutomc.plutocore.utils.MessageUtil
 
@@ -52,7 +53,7 @@ class Chat : Module("chat"), Listener {
                         Placeholder.parsed(
                             "message", LinkParser.parseUrl(
                                 event.message,
-                                getLocaleContentAsString(it.locale, "hover")
+                                getLocaleContentAsString(LocaleCache.getLocale(it.uniqueId), "hover")
                             )
                         )
                     )

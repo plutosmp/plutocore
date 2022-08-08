@@ -12,6 +12,7 @@ import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitTask
+import top.plutomc.plutocore.modules.localecache.LocaleCache
 import top.plutomc.plutocore.utils.MessageUtil
 import java.io.File
 import java.util.*
@@ -258,7 +259,7 @@ abstract class Module(name: String) {
 
     fun locale(target: CommandSender, key: String, vararg tagResolver: TagResolver) {
         val lang: String = if (target is Player) {
-            target.locale
+            LocaleCache.getLocale(target.uniqueId)
         } else {
             "zh_cn"
         }
@@ -290,7 +291,7 @@ abstract class Module(name: String) {
 
     fun locale(target: CommandSender, placeholderTarget: Player, key: String, vararg tagResolver: TagResolver) {
         val lang: String = if (target is Player) {
-            target.locale
+            LocaleCache.getLocale(target.uniqueId)
         } else {
             "zh_cn"
         }
