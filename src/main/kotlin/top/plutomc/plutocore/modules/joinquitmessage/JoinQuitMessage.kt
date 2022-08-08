@@ -22,7 +22,7 @@ class JoinQuitMessage : Module("joinAndQuitMessage"), Listener {
 
         // zh_tw
         addLocaleContent("zh_tw", "join", "<gray>[<green>+<gray>] <white><player> <gray>加入了遊戲。")
-        addLocaleContent("zh_tw", "quit", "<gray>[<green>-<gray>] <white><player> <gray>退出了遊戲。")
+        addLocaleContent("zh_tw", "quit", "<gray>[<red>-<gray>] <white><player> <gray>退出了遊戲。")
         addLocaleContent(
             "zh_tw", "display", "<gray>歡迎來到 <yellow>PlutoMC <gray>伺服器！",
             "<gray>我們在 <u><aqua><hover:show_text:'<aqua>點擊打開！'><click:open_url:'https://www.mcbbs.net/thread-1370761-1-1.html'>MCBBS</click></hover></aqua></u> <gray>和 <u><aqua><hover:show_text:'<aqua>點擊打開！'><click:open_url:'https://play.mcmod.cn/sv20186605.html'>找服玩</click></hover></aqua></u> <gray>都有帖子哦！",
@@ -33,7 +33,7 @@ class JoinQuitMessage : Module("joinAndQuitMessage"), Listener {
 
         // zh_hk
         addLocaleContent("zh_hk", "join", "<gray>[<green>+<gray>] <white><player> <gray>加入了遊戲。")
-        addLocaleContent("zh_hk", "quit", "<gray>[<green>-<gray>] <white><player> <gray>退出了遊戲。")
+        addLocaleContent("zh_hk", "quit", "<gray>[<red>-<gray>] <white><player> <gray>退出了遊戲。")
         addLocaleContent(
             "zh_hk", "display", "<gray>歡迎來到 <yellow>PlutoMC <gray>伺服器！",
             "<gray>我們在 <u><aqua><hover:show_text:'<aqua>點擊打開！'><click:open_url:'https://www.mcbbs.net/thread-1370761-1-1.html'>MCBBS</click></hover></aqua></u> <gray>和 <u><aqua><hover:show_text:'<aqua>點擊打開！'><click:open_url:'https://play.mcmod.cn/sv20186605.html'>找服玩</click></hover></aqua></u> <gray>都有帖子哦！",
@@ -44,7 +44,7 @@ class JoinQuitMessage : Module("joinAndQuitMessage"), Listener {
 
         // en_us
         addLocaleContent("en_us", "join", "<gray>[<green>+<gray>] <white><player> <gray>joined the game.")
-        addLocaleContent("en_us", "quit", "<gray>[<green>-<gray>] <white><player> <gray>left the game.")
+        addLocaleContent("en_us", "quit", "<gray>[<red>-<gray>] <white><player> <gray>left the game.")
         addLocaleContent(
             "en_us", "display", "<gray>Welcome to <yellow>PlutoMC <gray>server!",
             "<gray>We have a post about this server on <u><aqua><hover:show_text:'<aqua>Click to open!'><click:open_url:'https://www.mcbbs.net/thread-1370761-1-1.html'>MCBBS</click></hover></aqua></u> <gray>and <u><aqua><hover:show_text:'<aqua>Click to open!'><click:open_url:'https://play.mcmod.cn/sv20186605.html'>Find a server to play</click></hover></aqua></u> <gray>.",

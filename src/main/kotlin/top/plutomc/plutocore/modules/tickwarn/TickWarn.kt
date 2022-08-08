@@ -44,7 +44,7 @@ class TickWarn : Module("tickWarn") {
                     localeBroadcast("warn")
                 }
             }
-        }.runTaskTimerAsynchronously(main, 0L, 10L))
+        }.runTaskTimerAsynchronously(main, 0L, 60L * 10L * 20L))
     }
 
     override fun unload() {

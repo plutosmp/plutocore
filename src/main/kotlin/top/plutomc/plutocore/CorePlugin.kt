@@ -7,6 +7,7 @@ import top.plutomc.plutocore.framework.menu.MenuFramework
 import top.plutomc.plutocore.modules.armormenu.ArmorMenu
 import top.plutomc.plutocore.modules.chat.Chat
 import top.plutomc.plutocore.modules.joinquitmessage.JoinQuitMessage
+import top.plutomc.plutocore.modules.motd.Motd
 import top.plutomc.plutocore.modules.tablist.TabList
 import top.plutomc.plutocore.modules.tickwarn.TickWarn
 import java.io.File
@@ -84,6 +85,7 @@ class CorePlugin : JavaPlugin() {
         registerModule(TabList())
         registerModule(Chat())
         registerModule(ArmorMenu())
+        registerModule(Motd())
 
         modules.keys.forEach {
             modules[it]!!.info("Loading ${modules[it]!!.name}...")
