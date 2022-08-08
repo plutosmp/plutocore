@@ -232,11 +232,14 @@ abstract class Module(name: String) {
     }
 
     fun getLocaleContent(lang: String, key: String): Any? {
-        return if (getLocaleFile(lang).exists() && getLocaleConfig(lang).get(key) != null) {
-            getLocaleConfig(lang).get(key)
-        } else {
-            getLocaleConfig("zh_cn").get(key)
+        if (File(localeFolder, "$lang.yml").exists()) {
+            return if (getLocaleFile(lang).exists() && getLocaleConfig(lang).get(key) != null) {
+                getLocaleConfig(lang).get(key)
+            } else {
+                getLocaleConfig("zh_cn").get(key)
+            }
         }
+        return getLocaleConfig("zh_cn").get(key)
     }
 
     fun getLocaleContentAsString(lang: String, key: String): String {
