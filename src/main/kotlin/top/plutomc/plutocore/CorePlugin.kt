@@ -1,6 +1,7 @@
 package top.plutomc.plutocore
 
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
+import org.bukkit.event.HandlerList
 import org.bukkit.plugin.java.JavaPlugin
 import top.plutomc.plutocore.framework.menu.MenuFramework
 import top.plutomc.plutocore.modules.armormenu.ArmorMenu
@@ -22,6 +23,7 @@ class CorePlugin : JavaPlugin() {
 
         fun reloadPlugin() {
             instance.reloadConfig()
+            HandlerList.unregisterAll(instance)
             modules.keys.forEach {
                 Module.hardReload(modules[it]!!)
             }
